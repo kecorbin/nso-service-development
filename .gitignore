@@ -1,0 +1,9 @@
+logs/*
+ncs-cdb/*
+netsim/*
+packages/*
+!packages/vlan
+state/*
+target
+README.ncs
+README.netsim
