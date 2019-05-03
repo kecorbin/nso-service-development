@@ -13,12 +13,20 @@ module netdevops {
     prefix ncs;
   }
 
+
   description
     "This is a simple L2 VLAN service with basic switchport / trunk configuration";
 
   revision 2019-05-01 {
     description
       "Implements Basic L2 VLAN definition";
+  }
+
+  typedef zone1000-vlan {
+     tailf:info "by policy, this model is restricted to ID's 1000-2000";
+     type uint16 {
+       range "1000..2000";
+     }
   }
 
   list vlan {
@@ -30,6 +38,11 @@ module netdevops {
       tailf:info "Unique service id";
       tailf:cli-allow-range;
       type string;
+    }
+
+    leaf id {
+        tailf:info "VLAN ID";
+        type zone1000-vlan;
     }
 
     uses ncs:service-data;
