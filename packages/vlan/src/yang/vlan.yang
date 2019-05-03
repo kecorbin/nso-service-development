@@ -65,7 +65,9 @@ module netdevops {
         leaf port {
             type string;
         }
-        
+        must "count(/netdevops:vlan[name!=current()/../../name]/device[device=current()/../device]/access-port[port=current()]) = 0" {
+          error-message "Access port already in use by another VLAN";
+        }
         leaf description {
             type string;
         }
