@@ -20,8 +20,16 @@ class VLANService(Service):
         template.apply('vlan-template', vars)
 
         # apply template to access ports in this vlan
+        self.log.info('Configuring Access ports for VLAN {}'
+                      .format(service.id)
+                      )
         template.apply('access-port-template')
-        
+
+        # apply template to trunk ports in this vlan
+        self.log.info('Configuring Trunk ports for VLAN {}'.format(service.id))
+        template.apply('trunk-port-template')
+
+
 # ---------------------------------------------
 # COMPONENT THREAD THAT WILL BE STARTED BY NCS.
 # ---------------------------------------------
