@@ -45,6 +45,33 @@ module netdevops {
         type zone1000-vlan;
     }
 
+    list device {
+      key device;
+      leaf device {
+          type leafref {
+            path /ncs:devices/ncs:device/ncs:name;
+          }
+      }
+      list trunk-port {
+        key port;
+        leaf port {
+            type string;
+        }
+      }
+
+      list access-port {
+        key port;
+
+        leaf port {
+            type string;
+        }
+        
+        leaf description {
+            type string;
+        }
+      }
+    }
+
     uses ncs:service-data;
     ncs:servicepoint vlan-servicepoint;
   }
