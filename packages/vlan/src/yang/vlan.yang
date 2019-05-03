@@ -1,7 +1,7 @@
-module vlan {
+module netdevops {
 
   namespace "http://example.com/vlan";
-  prefix vlan;
+  prefix netdevops;
 
   import ietf-inet-types {
     prefix inet;
@@ -14,15 +14,16 @@ module vlan {
   }
 
   description
-    "Bla bla...";
+    "This is a simple L2 VLAN service with basic switchport / trunk configuration";
 
-  revision 2016-01-01 {
+  revision 2019-05-01 {
     description
-      "Initial revision.";
+      "Implements Basic L2 VLAN definition";
   }
 
   list vlan {
-    description "This is an RFS skeleton service";
+    tailf:info "Manage L2 VLAN Services";
+    description "A Layer 2 VLAN";
 
     key name;
     leaf name {
@@ -33,17 +34,5 @@ module vlan {
 
     uses ncs:service-data;
     ncs:servicepoint vlan-servicepoint;
-
-    // may replace this with other ways of refering to the devices.
-    leaf-list device {
-      type leafref {
-        path "/ncs:devices/ncs:device/ncs:name";
-      }
-    }
-
-    // replace with your own stuff here
-    leaf dummy {
-      type inet:ipv4-address;
-    }
   }
 }
