@@ -1,0 +1,53 @@
+---
+
+- name: Synchronization of Devices
+  hosts: localhost
+  connection: local
+  gather_facts: no
+
+  tasks:
+
+    - name: Ensure VLANs are configured
+      with_items:
+        - name: vlan1100
+          id: 1100
+          device:
+            - device: ios1
+              trunk-port:
+                - port: 1/1
+                - port: 1/2
+              access-port:
+                - port: 1/11
+                  description: server11
+            - device: nx1
+              trunk-port:
+                - port: 1/1
+                - port: 1/2
+              access-port:
+                - port: 1/11
+                  description: server11
+        - name: vlan1300
+          id: 1300
+          device:
+            - device: ios1
+              trunk-port:
+                - port: 1/1
+                - port: 1/2
+              access-port:
+                - port: 1/13
+                  description: server13
+            - device: nx1
+              trunk-port:
+                - port: 1/1
+                - port: 1/2
+              access-port:
+                - port: 1/13
+                  description: server13
+
+      nso_config:
+        url: http://localhost:8080/jsonrpc
+        username: "admin"
+        password: "admin"
+        data:
+          netdevops:vlan:
+            - "{{ item }}"
